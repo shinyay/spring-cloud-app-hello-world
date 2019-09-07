@@ -1,8 +1,27 @@
-# Name
+# Spring Cloud Application with Eureka
 
 Overview
 
 ## Description
+
+### JUnit 5
+
+```
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(module = "junit")
+		exclude(module = "mockito-core")
+	}
+	testImplementation("org.junit.jupiter:junit-jupiter-api")
+	testImplementation("org.junit.jupiter:junit-jupiter-params")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+```
+
+|Dependency|Function|
+|----------|--------|
+|junit-jupiter-api|Test Description: annotation and assertion(like assertEquals/assertTrue)|
+|junit-jupiter-params|Test Description: parameterized test|
+|junit-jupiter-engine|Test Exectuion|
+|assertj-core|Test Description: assertThat/Matcher|
 
 ## Demo
 
