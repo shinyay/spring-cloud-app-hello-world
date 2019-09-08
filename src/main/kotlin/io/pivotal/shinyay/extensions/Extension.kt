@@ -1,4 +1,4 @@
-package io.pivotal.shinyay.utility
+package io.pivotal.shinyay.extensions
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatterBuilder
