@@ -24,6 +24,14 @@ Overview
 |assertj-core|Test Description: assertThat/Matcher|
 |junit-vintage-engine|Test Exectuion as JUnit3/JUnit4|
 
+#### Tips: Secondary Constructor for JPATest
+```
+@DataJpaTest
+class RepositoryTest @Autowired constructor(
+        val entityManager: TestEntityManager,
+        val userRepository: UserRepository)
+```
+
 ## Demo
 
 ## Features
