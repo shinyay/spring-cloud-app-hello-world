@@ -1,6 +1,11 @@
 package io.pivotal.shinyay.utility
 
-private val daysLookuo = (1..31).associate { it.toLong() to getOrdinal(it) }
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatterBuilder
+import java.time.temporal.ChronoField
+import java.util.*
+
+private val daysLookup = (1..31).associate { it.toLong() to getOrdinal(it) }
 
 private fun getOrdinal(n: Int) = when {
     n in 11..13 -> "${n}th"
@@ -9,3 +14,14 @@ private fun getOrdinal(n: Int) = when {
     n % 10 == 3 -> "${n}rd"
     else -> "${n}th"
 }
+
+private val englishDateFormatter = DateTimeFormatterBuilder()
+        .appendPattern("yyyy-MM-dd")
+        .appendLiteral(" ")
+        .appendText(ChronoField.DAY_OF_MONTH, daysLookup)
+        .appendLiteral(" ")
+        .appendPattern("yyyy")
+        .toFormatter(Locale.ENGLISH)
+
+fun LocalDateTime.format() = this.format(englishDateFormatter)
+
