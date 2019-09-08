@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 
 @DataJpaTest
-class RepositoryTest (
+class RepositoryTest @Autowired constructor(
         val entityManager: TestEntityManager,
         val userRepository: UserRepository) {
 
