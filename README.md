@@ -32,6 +32,13 @@ class RepositoryTest @Autowired constructor(
         val userRepository: UserRepository)
 ```
 
+### Mock Test
+
+- [Mokk](https://mockk.io/)
+  - [SpringMockK](https://github.com/Ninja-Squad/springmockk)
+    - Support for Spring Boot integration tests written in Kotlin using MockK instead of Mockito
+- [Mockito](https://site.mockito.org)
+
 ## Demo
 
 ## Features
