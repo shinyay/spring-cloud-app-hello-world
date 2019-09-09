@@ -1,5 +1,6 @@
 package io.pivotal.shinyay
 
+import io.pivotal.shinyay.extensions.toSlug
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.*
 import org.slf4j.Logger
@@ -37,6 +38,26 @@ class SpringCloudAppHelloWorldApplicationTests(@Autowired val restTemplate: Test
 	fun httpClient_accessContextRoot_statusCodeOK() {
 		val entity = restTemplate.getForEntity<String>("/")
 		assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
+	}
+
+	@Test
+	fun httpClient_accessContextRoot_returnTitle() {
+		val entity = restTemplate.getForEntity<String>("/")
+		assertThat(entity.body).contains("<title>Hello</title>","<h1>Hello</h1>")
+	}
+
+	@Test
+	fun httpClient_accessArticle_statusOK() {
+		val title = "Hello World"
+		val entity = restTemplate.getForEntity<String>("/article/${title.toSlug()}")
+		assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
+	}
+
+	@Test
+	fun httpClient_accessArticle_returnContent() {
+		val title = "Hello World"
+		val entity = restTemplate.getForEntity<String>("/article/${title.toSlug()}")
+		assertThat(entity.body).contains("Spring and Kotlin")
 	}
 
 	@AfterEach
