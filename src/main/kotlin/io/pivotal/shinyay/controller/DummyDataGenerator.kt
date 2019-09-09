@@ -16,6 +16,7 @@ class DummyDataGenerator {
                             articleRepository: ArticleRepository) = ApplicationRunner {
 
         val syanagihara = userRepository.save(User("syanagihara", "Shinya", "Yanagihara"))
+        val shinyay = userRepository.save(User("shinyay", "Shinya", "Yanagihara"))
         articleRepository.save(Article(
                 title = "Hello World",
                 headline = "Hello Spring with Kotlin",
@@ -26,7 +27,7 @@ class DummyDataGenerator {
                 title = "タイトル",
                 headline = "ヘッドライン",
                 content = "コンテンツ",
-                author = syanagihara
+                author = shinyay
         ))
     }
 }
