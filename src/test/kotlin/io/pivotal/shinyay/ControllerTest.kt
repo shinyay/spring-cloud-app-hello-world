@@ -34,4 +34,16 @@ class ControllerTest(@Autowired val mockMvc: MockMvc) {
         logger.info("THEN: Verification -> The result is Y")
     }
 
+    @Test
+    fun givenUsers_whenAccessHttpApiEndpoint_thenReturnOkStatus() {
+        val syanagihara = User("syanagihara", "Shinya", "Yanagihara")
+        val shinyay = User("shinyay", "Shinya", "Yanagihara")
+
+        every { userRepository.findAll() } returns listOf(syanagihara, shinyay)
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/api/user")
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk)
+    }
 }
