@@ -5,6 +5,7 @@ import io.mockk.every
 import io.pivotal.shinyay.entity.User
 import io.pivotal.shinyay.repository.ArticleRepository
 import io.pivotal.shinyay.repository.UserRepository
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.slf4j.Logger
@@ -17,6 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ControllerTest(@Autowired val mockMvc: MockMvc) {
 
     private val logger: Logger = LoggerFactory.getLogger(this.javaClass.name)
@@ -27,6 +29,16 @@ class ControllerTest(@Autowired val mockMvc: MockMvc) {
     @MockkBean
     lateinit var  articleRepository: ArticleRepository
 
+    lateinit var syanagihara: User
+    lateinit var shinyay: User
+
+    @BeforeAll
+    fun initialize() {
+        logger.info(">> Setup for Integration Test")
+        syanagihara = User("syanagihara", "Shinya", "Yanagihara")
+        shinyay = User("shinyay", "Shinya", "Yanagihara")
+    }
+
     @Test
     fun given_when_then() {
         logger.info("GIVEN: Preparation -> The state is X")
@@ -35,9 +47,7 @@ class ControllerTest(@Autowired val mockMvc: MockMvc) {
     }
 
     @Test
-    fun ggvenUsers_whenAccessHttpApiEndpoint_thenReturnOkStatus() {
-        val syanagihara = User("syanagihara", "Shinya", "Yanagihara")
-        val shinyay = User("shinyay", "Shinya", "Yanagihara")
+    fun givenUsers_whenAccessHttpApiEndpoint_thenReturnOkStatus() {
 
         every { userRepository.findAll() } returns listOf(syanagihara, shinyay)
 
