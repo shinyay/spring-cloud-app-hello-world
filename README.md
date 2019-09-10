@@ -41,6 +41,8 @@ class RepositoryTest @Autowired constructor(
 
 ### MockK
 
+- [HowTo](https://mockk.io/)
+
 ```
 val car = mockk<Car>()
 every { car.drive(Direction.NORTH) } returns Outcome.OK
@@ -63,7 +65,7 @@ confirmVerified(car)
   - Check for call function
 
 - `confirmVerified(car)`
-  - Confirm all verify method for verification
+  - Confirm all verify function for verification
 
 ## Demo
 

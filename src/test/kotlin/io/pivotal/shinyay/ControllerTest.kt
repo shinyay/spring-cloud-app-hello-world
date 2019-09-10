@@ -35,7 +35,7 @@ class ControllerTest(@Autowired val mockMvc: MockMvc) {
     }
 
     @Test
-    fun givenUsers_whenAccessHttpApiEndpoint_thenReturnOkStatus() {
+    fun ggvenUsers_whenAccessHttpApiEndpoint_thenReturnOkStatus() {
         val syanagihara = User("syanagihara", "Shinya", "Yanagihara")
         val shinyay = User("shinyay", "Shinya", "Yanagihara")
 
