@@ -39,6 +39,32 @@ class RepositoryTest @Autowired constructor(
     - Support for Spring Boot integration tests written in Kotlin using MockK instead of Mockito
 - [Mockito](https://site.mockito.org)
 
+### MockK
+
+```
+val car = mockk<Car>()
+every { car.drive(Direction.NORTH) } returns Outcome.OK
+car.drive(Direction.NORTH) // returns OK
+verify { car.drive(Direction.NORTH) }
+confirmVerified(car)
+```
+
+- `val car = mockk<Car>()`
+  - Create Mock Instance
+
+- `every { car.drive(Direction.NORTH) } returns Outcome.OK`
+  - Pattern for Mock Instance
+    - Whenever car instance call drive function with Direction.NORTH parameter, it returns Outcome.OK
+
+- `car.drive(Direction.NORTH)`
+  - Actually call car drive function
+
+- `verify { car.drive(Direction.NORTH) }`
+  - Check for call function
+
+- `confirmVerified(car)`
+  - Confirm all verify method for verification
+
 ## Demo
 
 ## Features
