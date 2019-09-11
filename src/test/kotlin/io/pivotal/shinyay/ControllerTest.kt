@@ -15,7 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
 @WebMvcTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -55,5 +55,18 @@ class ControllerTest(@Autowired val mockMvc: MockMvc) {
                 .get("/api/user")
                 .accept(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk)
+    }
+
+    @Test
+    fun givenUsers_whenAccessHttpApiEndpoint_thenReturnAllUsers() {
+
+        every { userRepository.findAll() } returns listOf(syanagihara, shinyay)
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/api/user")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk)
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.[0].login").value(syanagihara.login))
     }
 }
