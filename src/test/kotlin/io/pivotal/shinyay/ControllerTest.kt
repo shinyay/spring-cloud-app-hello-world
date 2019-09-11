@@ -2,6 +2,7 @@ package io.pivotal.shinyay
 
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
+import io.pivotal.shinyay.entity.Article
 import io.pivotal.shinyay.entity.User
 import io.pivotal.shinyay.repository.ArticleRepository
 import io.pivotal.shinyay.repository.UserRepository
@@ -31,12 +32,16 @@ class ControllerTest(@Autowired val mockMvc: MockMvc) {
 
     lateinit var syanagihara: User
     lateinit var shinyay: User
+    lateinit var pivotal: Article
+    lateinit var vmware: Article
 
     @BeforeAll
     fun initialize() {
         logger.info(">> Setup for Integration Test")
         syanagihara = User("syanagihara", "Shinya", "Yanagihara")
         shinyay = User("shinyay", "Shinya", "Yanagihara")
+        pivotal = Article("Pivotal", "Do the right thing", "We Transform How The World Builds Software.", syanagihara)
+        vmware = Article("VMware", "VMware aquires Pivotal", "VMware Leveraged Kubernetes For Its Cloud-Native", shinyay)
     }
 
     @Test
@@ -83,4 +88,16 @@ class ControllerTest(@Autowired val mockMvc: MockMvc) {
                 .andExpect(jsonPath("$.[0].login").value(syanagihara.login))
                 .andExpect(jsonPath("$.[1].login").value(shinyay.login))
     }
+
+    @Test
+    fun givenUsersAndArticles_whenAccessHttpApiEndpoint_thenReturnOkStatus() {
+
+        every { articleRepository.findAllByOrderByAddedAtDesc() } returns listOf(pivotal, vmware)
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/api/article")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk)
+    }
+
 }
