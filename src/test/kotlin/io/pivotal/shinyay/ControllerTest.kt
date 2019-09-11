@@ -126,4 +126,20 @@ class ControllerTest(@Autowired val mockMvc: MockMvc) {
                 .andExpect(jsonPath("$.[0].author.login").value(syanagihara.login))
                 .andExpect(jsonPath("$.[0].slug").value(pivotal.slug))
     }
+
+    @Test
+    fun givenUsersAndArticles_whenAccessHttpApiEndpoint_thenReturnAllArticleSortedMulti() {
+
+        every { articleRepository.findAllByOrderByAddedAtDesc() } returns listOf(pivotal, vmware)
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/api/article")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk)
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.[0].author.login").value(syanagihara.login))
+                .andExpect(jsonPath("$.[0].slug").value(pivotal.slug))
+                .andExpect(jsonPath("$.[1].author.login").value(shinyay.login))
+                .andExpect(jsonPath("$.[1].slug").value(vmware.slug))
+    }
 }
