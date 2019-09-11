@@ -100,4 +100,16 @@ class ControllerTest(@Autowired val mockMvc: MockMvc) {
                 .andExpect(status().isOk)
     }
 
+    @Test
+    fun givenUsersAndArticles_whenAccessHttpApiEndpoint_thenReturnAllArticleSortedSingle() {
+
+        every { articleRepository.findAllByOrderByAddedAtDesc() } returns listOf(pivotal, vmware)
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/api/article")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk)
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.[0].author.login").value(syanagihara.login))
+    }
 }
