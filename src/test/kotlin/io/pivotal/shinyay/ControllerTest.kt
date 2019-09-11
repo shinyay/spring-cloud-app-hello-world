@@ -58,7 +58,20 @@ class ControllerTest(@Autowired val mockMvc: MockMvc) {
     }
 
     @Test
-    fun givenUsers_whenAccessHttpApiEndpoint_thenReturnAllUsers() {
+    fun givenUsers_whenAccessHttpApiEndpoint_thenReturnAllUsersSingle() {
+
+        every { userRepository.findAll() } returns listOf(syanagihara)
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/api/user")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk)
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.[0].login").value(syanagihara.login))
+    }
+
+    @Test
+    fun givenUsers_whenAccessHttpApiEndpoint_thenReturnAllUsersMulti() {
 
         every { userRepository.findAll() } returns listOf(syanagihara, shinyay)
 
@@ -68,5 +81,6 @@ class ControllerTest(@Autowired val mockMvc: MockMvc) {
                 .andExpect(status().isOk)
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.[0].login").value(syanagihara.login))
+                .andExpect(jsonPath("$.[1].login").value(shinyay.login))
     }
 }
