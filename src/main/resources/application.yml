@@ -6,3 +6,6 @@ spring:
 info:
   app:
     name: ${spring.application.name}
+eureka:
+  client:
+    register-with-eureka: true
