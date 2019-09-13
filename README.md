@@ -67,6 +67,24 @@ confirmVerified(car)
 - `confirmVerified(car)`
   - Confirm all verify function for verification
 
+### Spring Cloud Eureka Client
+
+```
+eureka:
+  client:
+    registerWithEureka: true
+    serviceUrl: 
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+    healthcheck:
+      enabled: true
+```
+
+|Item|Content|
+|----|-------|
+|registerWithEureka: true|Register Client side information to Eureka Server|
+|serviceUrl|Eureka Server URK<br>if environment variable EUREKA_SERVER exists, use its value, if not, here’s a default value|
+|healthcheck|Heartbeat on to check application status UP or DOWN|
+
 ## Demo
 
 ## Features
