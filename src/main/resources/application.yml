@@ -13,3 +13,12 @@ eureka:
       default-zone: ${EUREKA_SERVER:http://localhost:8761/eureka}
     healthcheck:
       enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - mappings
+          - env
+          - health
+          - info
